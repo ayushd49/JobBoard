@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TalentBridge — Find your next role. No noise, just opportunity.">
+  <title>TalentBridge — Job Board</title>
+
+  
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/utilities.css">
+  <link rel="stylesheet" href="css/themes.css">
+</head>
+<body>
+
+<div class="app">
+
+  
+  <header>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <div class="nav__inner">
+
+        
+        <a href="#" class="nav__logo" aria-label="TalentBridge home">
+          <span class="nav__logo-text">TalentBridge</span>
+        </a>
+
+        
+        <div class="nav__links" id="nav-links" role="menubar"></div>
+
+        
+        <div class="nav__actions">
+          <button class="btn-theme"
+                  id="theme-toggle"
+                  aria-label="Switch to dark mode"
+                  title="Toggle theme"
+                  data-theme-state="light">
+            <span class="btn-theme__track">
+              <span class="btn-theme__thumb">
+                <span class="btn-theme__icon" id="theme-icon"></span>
+              </span>
+            </span>
+            <span class="btn-theme__label" id="theme-label">Light</span>
+          </button>
+          <button class="nav__hamburger"
+                  id="hamburger-btn"
+                  aria-label="Open navigation menu"
+                  aria-expanded="false"
+                  aria-controls="nav-drawer">
+            <span id="hamburger-icon"></span>
+          </button>
+        </div>
+
+      </div>
+
+      
+      <nav class="nav__drawer" id="nav-drawer" aria-label="Mobile navigation">
+        <div id="nav-drawer-links"></div>
+      </nav>
+    </nav>
+  </header>
+
+  
+  <section class="hero" aria-label="Job search hero">
+    <div class="hero__inner">
+      <h1 class="hero__title">Find your next role.<br>No noise, just opportunity.</h1>
+      <p class="hero__subtitle">Browse hand-verified listings from top companies hiring right now.</p>
+
+      
+      <div class="hero__stats" id="hero-stats" aria-label="Platform statistics"></div>
+
+      
+      <div class="hero__search" role="search">
+        <label for="search-input" class="sr-only">Search jobs by title, company, or skill</label>
+        <input
+          type="search"
+          id="search-input"
+          class="search-input"
+          placeholder="Job title, keyword, or company..."
+          autocomplete="off"
+          aria-label="Search jobs"
+        >
+        <button class="btn btn-primary" id="search-btn" aria-label="Search jobs">
+          Search Jobs
+        </button>
+      </div>
+    </div>
+  </section>
+
+  
+  <main class="main" id="main-content">
+    <div class="content-layout">
+
+      
+      <aside class="sidebar sidebar--mobile-hidden"
+             id="sidebar"
+             aria-label="Job filters">
+        <div id="sidebar-filters">
+          
+        </div>
+      </aside>
+
+      
+      <section class="content-area" aria-label="Job listings">
+
+        
+        <div class="toolbar" role="toolbar" aria-label="Job listing controls">
+          <div class="toolbar__left">
+            
+            <button class="filter-toggle-btn"
+                    id="filter-toggle-btn"
+                    aria-label="Toggle filters"
+                    aria-expanded="false"
+                    aria-controls="sidebar">
+              <span class="btn-icon-wrap"></span> Filters
+            </button>
+
+            
+            <p class="results-count" id="results-count" aria-live="polite">
+              <strong>12</strong> jobs found
+            </p>
+          </div>
+
+          <div class="toolbar__right">
+            
+            <label for="sort-select" class="sr-only">Sort jobs</label>
+            <select class="sort-select" id="sort-select" aria-label="Sort jobs by">
+              
+            </select>
+
+            
+            <div class="view-toggle" role="group" aria-label="View mode">
+              <button class="view-toggle__btn is-active"
+                      data-view="list"
+                      aria-label="List view"
+                      title="List view">
+                <span id="icon-list-view"></span>
+              </button>
+              <button class="view-toggle__btn"
+                      data-view="grid"
+                      aria-label="Grid view"
+                      title="Grid view">
+                <span id="icon-grid-view"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="active-filters"
+             id="active-filters"
+             role="list"
+             aria-label="Active filters">
+        </div>
+
+        
+        <div class="jobs-grid" id="jobs-container" role="list" aria-label="Job listings">
+          
+        </div>
+
+        
+        <nav class="pagination"
+             id="pagination"
+             aria-label="Job listings pagination">
+        </nav>
+
+      </section>
+    </div>
+  </main>
+
+  
+  <footer class="footer" role="contentinfo">
+    <p>© 2025 TalentBridge. Built with ♥ using vanilla HTML, CSS &amp; JavaScript.</p>
+  </footer>
+
+</div>
+
+<div class="modal-backdrop"
+     id="modal-detail-backdrop"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="detail-title">
+
+  <article class="modal modal--detail" id="modal-detail">
+
+    
+    <div class="modal__header">
+      <div class="detail__company-row">
+        <div class="detail__logo" id="detail-logo" aria-hidden="true">VC</div>
+        <div>
+          <h2 class="detail__title" id="detail-title">Job Title</h2>
+          <p class="detail__company" id="detail-company">Company</p>
+        </div>
+      </div>
+      <button class="modal__close"
+              data-modal-close="modal-detail-backdrop"
+              aria-label="Close job detail">
+        <span id="icon-close-detail"></span>
+      </button>
+    </div>
+
+    
+    <div class="modal__body">
+      
+      <div class="detail__meta" id="detail-meta"></div>
+
+      
+      <div class="detail__section">
+        <h3 class="detail__section-title">About the Role</h3>
+        <p class="detail__description" id="detail-description"></p>
+      </div>
+
+      
+      <div class="detail__section">
+        <h3 class="detail__section-title">Responsibilities</h3>
+        <ul class="detail__list" id="detail-responsibilities" aria-label="Job responsibilities"></ul>
+      </div>
+
+      
+      <div class="detail__section">
+        <h3 class="detail__section-title">Requirements</h3>
+        <ul class="detail__list" id="detail-requirements" aria-label="Job requirements"></ul>
+      </div>
+
+      
+      <div class="detail__section">
+        <h3 class="detail__section-title">Tech Stack</h3>
+        <div class="detail__tags" id="detail-tags"></div>
+      </div>
+    </div>
+
+    
+    <div class="modal__footer">
+      <p class="detail__salary" id="detail-salary"></p>
+      <div style="display:flex; gap: 8px; flex-wrap:wrap;">
+        <button class="btn btn-ghost"
+                data-modal-close="modal-detail-backdrop"
+                aria-label="Close modal">
+          Close
+        </button>
+        <button class="btn btn-primary" id="detail-apply-btn">
+          Apply Now →
+        </button>
+      </div>
+    </div>
+
+  </article>
+</div>
+
+<div class="modal-backdrop"
+     id="modal-apply-backdrop"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="apply-job-title">
+
+  <div class="modal" id="modal-apply">
+
+    
+    <div class="modal__header">
+      <h2 id="apply-job-title" style="font-family:var(--font-display); font-size:var(--text-md); font-weight:700; color:var(--color-text-primary);">
+        Apply for this Role
+      </h2>
+      <button class="modal__close"
+              data-modal-close="modal-apply-backdrop"
+              aria-label="Close application form">
+        <span id="icon-close-apply"></span>
+      </button>
+    </div>
+
+    
+    <div class="modal__body" id="apply-form-body">
+      <p class="form__note">Fields marked <span class="form__required">*</span> are required.</p>
+
+      <form id="apply-form" novalidate aria-label="Job application form">
+        <div class="form__grid">
+
+          
+          <div class="form__group">
+            <label class="form__label" for="fname">
+              First Name <span class="form__required" aria-hidden="true">*</span>
+            </label>
+            <input type="text"
+                   id="fname"
+                   class="form__input"
+                   placeholder="John"
+                   required
+                   autocomplete="given-name"
+                   aria-required="true"
+                   aria-describedby="fname-error">
+            <span class="form__error" id="fname-error" role="alert">
+              Please enter your first name.
+            </span>
+          </div>
+
+          
+          <div class="form__group">
+            <label class="form__label" for="lname">
+              Last Name <span class="form__required" aria-hidden="true">*</span>
+            </label>
+            <input type="text"
+                   id="lname"
+                   class="form__input"
+                   placeholder="Smith"
+                   required
+                   autocomplete="family-name"
+                   aria-required="true"
+                   aria-describedby="lname-error">
+            <span class="form__error" id="lname-error" role="alert">
+              Please enter your last name.
+            </span>
+          </div>
+
+          
+          <div class="form__group form__full">
+            <label class="form__label" for="email">
+              Email Address <span class="form__required" aria-hidden="true">*</span>
+            </label>
+            <input type="email"
+                   id="email"
+                   class="form__input"
+                   placeholder="john@example.com"
+                   required
+                   autocomplete="email"
+                   aria-required="true"
+                   aria-describedby="email-error">
+            <span class="form__error" id="email-error" role="alert">
+              Please enter a valid email address.
+            </span>
+          </div>
+
+          
+          <div class="form__group form__full">
+            <label class="form__label" for="phone">Phone Number</label>
+            <input type="tel"
+                   id="phone"
+                   class="form__input"
+                   placeholder="+1 (555) 000-0000"
+                   autocomplete="tel"
+                   aria-describedby="phone-error">
+            <span class="form__error" id="phone-error" role="alert"></span>
+          </div>
+
+          
+          <div class="form__group form__full">
+            <label class="form__label" for="portfolio">
+              Portfolio / LinkedIn URL <span class="form__required" aria-hidden="true">*</span>
+            </label>
+            <input type="url"
+                   id="portfolio"
+                   class="form__input"
+                   placeholder="https://yourportfolio.com"
+                   required
+                   autocomplete="url"
+                   aria-required="true"
+                   aria-describedby="portfolio-error">
+            <span class="form__error" id="portfolio-error" role="alert">
+              Please enter a valid URL.
+            </span>
+          </div>
+
+          
+          <div class="form__group form__full">
+            <label class="form__label" for="resume">
+              Resume / CV <span class="form__required" aria-hidden="true">*</span>
+            </label>
+            <div class="file-upload">
+              <input type="file"
+                     id="resume"
+                     class="file-upload__input"
+                     accept=".pdf,.doc,.docx"
+                     required
+                     aria-required="true"
+                     aria-describedby="resume-error resume-hint">
+              <div class="file-upload__label" aria-hidden="true" id="file-upload-label">
+                <span id="icon-paperclip"></span> Click to upload your resume
+              </div>
+            </div>
+            <span class="form__hint" id="resume-hint">PDF, DOC, DOCX — Max 5MB</span>
+            <span class="form__error" id="resume-error" role="alert">
+              Please upload your resume.
+            </span>
+          </div>
+
+          
+          <div class="form__group form__full">
+            <label class="form__label" for="cover">
+              Cover Note <span class="form__required" aria-hidden="true">*</span>
+            </label>
+            <textarea id="cover"
+                      class="form__textarea"
+                      placeholder="Tell us why you're a great fit for this role..."
+                      required
+                      rows="4"
+                      aria-required="true"
+                      aria-describedby="cover-error"></textarea>
+            <span class="form__error" id="cover-error" role="alert">
+              Please write a brief cover note (at least 20 characters).
+            </span>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="apply-success hidden" id="apply-success" role="status" aria-live="polite">
+      <div class="success-modal">
+        <div class="success-modal__icon" id="icon-success"></div>
+        <h3 class="success-modal__title">Application Sent!</h3>
+        <p class="success-modal__msg">
+          Your application has been submitted successfully. The hiring team will be in touch within 5–7 business days.
+        </p>
+        <button class="btn btn-primary" id="success-back-btn">
+          Back to Jobs
+        </button>
+      </div>
+    </div>
+
+    
+    <div class="modal__footer" style="justify-content:flex-end;">
+      <button class="btn btn-ghost"
+              data-modal-close="modal-apply-backdrop"
+              aria-label="Cancel application">
+        Cancel
+      </button>
+      <button class="btn btn-primary"
+              type="submit"
+              form="apply-form"
+              aria-label="Submit application">
+        Submit Application →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="assets/icons/icons.js"></script>
+<script src="js/data.js"></script>
+<script src="js/render.js"></script>
+<script src="js/filter.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/form.js"></script>
+
+<script>
+  /* ── Boot sequence ── */
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /* 1. Render nav links and hero stats from data */
+    renderNavLinks();
+    renderStats();
+    renderSortOptions();
+
+    /* 2. Build sidebar filter panel */
+    renderSidebar();
+
+    /* 3. Render initial full job list */
+    renderJobs(jobs);
+
+    /* 4. Initialise search + filter event listeners */
+    initSearch();
+
+    /* 5. Initialise modal open/close behavior */
+    initModals();
+
+    /* 6. Initialise form validation */
+    initForm();
+
+    /* 7. Inject static inline SVG icons */
+    document.getElementById('theme-icon').innerHTML     = ICONS.sun;
+    document.getElementById('hamburger-icon').innerHTML = ICONS.menu;
+    document.getElementById('icon-list-view').innerHTML = ICONS.listView;
+    document.getElementById('icon-grid-view').innerHTML = ICONS.gridView;
+    document.getElementById('icon-close-detail').innerHTML = ICONS.close;
+    document.getElementById('icon-close-apply').innerHTML  = ICONS.close;
+    document.getElementById('icon-paperclip').innerHTML = ICONS.paperclip;
+    document.getElementById('icon-success').innerHTML   = ICONS.success;
+    /* Filter toggle button icon */
+    const filterToggle = document.querySelector('.filter-toggle-btn .btn-icon-wrap');
+    if (filterToggle) filterToggle.innerHTML = ICONS.filter;
+
+    /* 8. Theme toggle */
+    const themeBtn   = document.getElementById('theme-toggle');
+    const themeIcon  = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+    const html       = document.documentElement;
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        html.setAttribute('data-theme', 'light');
+        themeIcon.innerHTML = ICONS.sun;
+        themeLabel.textContent = 'Light';
+        themeBtn.setAttribute('aria-label', 'Switch to dark mode');
+        themeBtn.setAttribute('data-theme-state', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        themeIcon.innerHTML = ICONS.moon;
+        themeLabel.textContent = 'Dark';
+        themeBtn.setAttribute('aria-label', 'Switch to light mode');
+        themeBtn.setAttribute('data-theme-state', 'dark');
+      }
+    });
+
+    /* 9. Mobile hamburger menu */
+    const hamburgerBtn  = document.getElementById('hamburger-btn');
+    const hamburgerSpan = document.getElementById('hamburger-icon');
+    const navDrawer     = document.getElementById('nav-drawer');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = navDrawer.classList.toggle('is-open');
+      hamburgerBtn.setAttribute('aria-expanded', isOpen);
+      hamburgerSpan.innerHTML = isOpen ? ICONS.close : ICONS.menu;
+    });
+
+  });
+</script>
+
+</body>
+</html>

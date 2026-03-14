@@ -1,0 +1,44 @@
+html[data-theme="dark"] {
+  --color-bg:             #0F0F0E;
+  --color-surface:        #1A1A18;
+  --color-surface-2:      #242422;
+  --color-border:         #2E2E2B;
+  --color-text-primary:   #F2F1EE;
+  --color-text-secondary: #9B9A93;
+  --color-text-muted:     #636259;
+  --color-accent:         #4F76F6;
+  --color-accent-hover:   #6B8EF8;
+  --color-accent-soft:    #1B2550;
+  --color-tag-bg:         #2A2A27;
+  --color-tag-text:       #C0BFB5;
+  --color-success:        #4ADE80;
+  --color-success-bg:     #052E16;
+  --color-warning:        #FCD34D;
+  --color-warning-bg:     #422006;
+  --color-error:          #F87171;
+  --color-error-bg:       #450A0A;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+button, a, input, select, textarea {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.18s ease,
+    opacity 0.18s ease;
+}
